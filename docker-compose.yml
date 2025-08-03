@@ -1,0 +1,14 @@
+services:
+  rust-dev:
+    build: .                # ← Dockerfile がある場所（今のプロジェクトルート）
+    image: rust-dev
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app                # $(pwd):/app と同じ
+      - $SSH_AUTH_SOCK:/ssh-agent # Macのssh-agentをコンテナに渡す
+      - ~/.gitconfig:/root/.gitconfig
+    environment:
+      SSH_AUTH_SOCK: /ssh-agent
+    
